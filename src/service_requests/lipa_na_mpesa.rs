@@ -13,6 +13,7 @@ use crate::models::response::AuthResponse;
 
 // [SERVICES] i.e AuthenticationService, LipaNaMpesaService etc.
 use crate::service_requests::authentication::AuthenticationService;
+use crate::utils::timestamp::TimestampGenerator;
 
 ///////////////////////////////////
 //// Define Transaction Types ////
@@ -57,7 +58,7 @@ impl LipaNaMpesaService {
             .trim()
             .parse::<u64>()
             .unwrap();
-        let PASSKEY = std::env::var("PASSKEY").expect("[PASSKEY] NOT found!");
+        let PASSKEY = "";
         let callback_url = std::env::var("CALLBACK_URL").expect("[CALLBACK_URL] NOT found!");
 
         //////////////////////////////////////////
@@ -89,6 +90,8 @@ impl LipaNaMpesaService {
         println!("{:#?}", payload.clone());
         ////////////////////////////////////
 
+        let timestamp = TimestampGenerator::init();
+        println!("{:?}", timestamp);
 
         // match client
         //     .post(urls.MpesaExpress.url)

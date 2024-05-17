@@ -25,8 +25,8 @@ async fn main() {
     ////////////////////////////////////////////
     //// Initiate [Authentication] service ////
     //////////////////////////////////////////
-    let auth_result = AuthenticationService::init();
-    println!("{:?}", auth_result.await.unwrap());
+    // let auth_result = AuthenticationService::init();
+    // println!("{:?}", auth_result.await.unwrap());
 
     /////////////////////////////////////////
     //// Initiate [LipaNaMpesa] service ////
@@ -37,5 +37,5 @@ async fn main() {
         "CompanyNameLTD".to_string(),
         "The payment has been processed successfully".to_string(),
     );
-    // println!("{:?}", lipa_na_mpesa_result.await);
+    println!("{:?}", lipa_na_mpesa_result.await);
 }

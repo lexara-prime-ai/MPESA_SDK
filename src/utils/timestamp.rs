@@ -1,9 +1,10 @@
+use anyhow::Error;
 use chrono::{Datelike, Local, Timelike};
 
 pub struct TimestampGenerator;
 
 impl TimestampGenerator {
-    pub fn init() -> Result<String> {
+    pub fn init() -> Result<String, Error> {
         // Use [Local] instead of [Utc] depending on your [Time Zone].
         let current_date = Local::now();
         let year = current_date.year();
@@ -18,7 +19,7 @@ impl TimestampGenerator {
             year, month, day, hour, minute, second
         );
 
-        println!("{}", formatted_date_time);
+        println!("[CURRENT TIMESTAMP] -> {}", formatted_date_time);
         Ok(formatted_date_time)
     }
 }
