@@ -2,7 +2,6 @@ use dotenv::dotenv;
 use reqwest;
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE};
 
-///////////////////////////////////////////
 // [SERVICE] endpoints.
 use crate::service_endpoints::endpoints;
 
@@ -14,7 +13,6 @@ use crate::models::response::AuthResponse;
 
 // [SERVICES] i.e AuthenticationService, LipaNaMpesaService etc.
 use crate::service_requests::authentication::AuthenticationService;
-//////////////////////////////////////////
 
 ///////////////////////////////////
 //// Define Transaction Types ////
@@ -49,7 +47,9 @@ impl LipaNaMpesaService {
         dotenv().ok();
         let client = reqwest::Client::new();
 
+        /////////////////////////////////////
         ///////////// [CONFIG] /////////////
+        ////////////////////////////////////
         let urls = endpoints::ServiceEndpoints::new();
         let auth_token = AuthenticationService::init().await.unwrap();
         let business_short_code = std::env::var("BUSINESS_SHORT_CODE")
@@ -57,12 +57,15 @@ impl LipaNaMpesaService {
             .trim()
             .parse::<u64>()
             .unwrap();
+        let PASSKEY = std::env::var("PASSKEY").expect("[PASSKEY] NOT found!");
         let callback_url = std::env::var("CALLBACK_URL").expect("[CALLBACK_URL] NOT found!");
-        /////////////////////////////////////
 
+        //////////////////////////////////////////
         ///////////// Define [PAYLOD] ///////////
+        ////////////////////////////////////////
         let payload = serde_json::to_string(&LipaNaMpesaServiceRequest {
             BusinessShortCode: business_short_code,
+            // Password -> Base64 Encode (Business Short Code + PassKey + Timestamp).
             Password: "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwNTE3MTgyNTA2".to_string(),
             Timestamp: "20240517182506".to_string(),
             TransactionType: TransactionTypes::CustomerPayBillOnline.as_str().to_string(),
@@ -76,11 +79,16 @@ impl LipaNaMpesaService {
         })
         .unwrap();
 
+        /////////////////////////////////////
+        /////////// [DEBUGGING] /////////////
+        /////////////////////////////////////
         // dbg!(auth_token.clone());
         // dbg!(format!("Basic {:?}", auth_token));
         // dbg!(urls.Authorization.clone());
         // dbg!(payload.clone());
         println!("{:#?}", payload.clone());
+        ////////////////////////////////////
+
 
         // match client
         //     .post(urls.MpesaExpress.url)
