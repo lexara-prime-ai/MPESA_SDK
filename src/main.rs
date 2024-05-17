@@ -1,34 +1,47 @@
-// let headers = new Headers();
-// headers.append("Authorization", "Bearer cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==");
-// fetch("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", { headers })
-//   .then(response => response.text())
-//   .then(result => console.log(result))
-//   .catch(error => console.log(error));
+/*  let headers = new Headers();
+    headers.append("Authorization", "Bearer cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==");
+
+    fetch("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", { headers })
+   .then(response => response.text())
+   .then(result => console.log(result))
+   .catch(error => console.log(error));
+*/
+
+use std::str::FromStr;
 
 use reqwest;
-use reqwest::header;
+use reqwest::header::AUTHORIZATION;
 use serde::Deserialize;
+use url::Url;
+
+// [SERVICE] endpoints
+mod service_endpoints;
+use service_endpoints::endpoints;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize)]
-pub struct Todo {
-    pub userId: i32,
-    pub id: u32,
-    pub title: String,
-    pub completed: bool,
+pub struct AuthResponse {
+    pub access_token: String,
+    pub expires_in: String,
 }
 
 #[tokio::main]
 async fn main() {
     let client = reqwest::Client::new();
-    let endpoint = "https://jsonplaceholder.typicode.com/todos";
+    let urls = endpoints::ServiceEndpoints::new();
+
+    print!("{:?}", urls.Authorization);
 
     let response = client
-        .get(endpoint)
+        .get(urls.Authorization.url)
+        .header(
+            AUTHORIZATION,
+            "Bearer cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==",
+        )
         .send()
         .await
         .unwrap()
-        .json::<Vec<Todo>>()
+        .json::<Vec<AuthResponse>>()
         .await;
 
     print!("{:#?}", response);

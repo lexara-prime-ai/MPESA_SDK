@@ -494,6 +494,7 @@ dependencies = [
  "reqwest",
  "serde",
  "tokio",
+ "url",
 ]
 
 [[package]]
