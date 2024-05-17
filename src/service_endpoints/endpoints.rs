@@ -36,11 +36,11 @@ impl ServiceEndpoints {
             },
             CustomerToBusiness: EndpointMetadata {
                 url: CUSTOMER_TO_BUSINESS_URL.to_owned(),
-                requestType: RequestTypes::GET,
+                requestType: RequestTypes::POST,
             },
             MpesaExpress: EndpointMetadata {
                 url: MPESA_EXPRESS_URL.to_owned(),
-                requestType: RequestTypes::GET,
+                requestType: RequestTypes::POST,
             },
         }
     }

@@ -7,23 +7,16 @@
    .catch(error => console.log(error));
 */
 
-use std::str::FromStr;
-
 use reqwest;
 use reqwest::header::AUTHORIZATION;
-use serde::Deserialize;
-use url::Url;
 
-// [SERVICE] endpoints
+// [SERVICE] endpoints.
 mod service_endpoints;
 use service_endpoints::endpoints;
 
-#[allow(non_snake_case)]
-#[derive(Debug, Deserialize)]
-pub struct AuthResponse {
-    pub access_token: String,
-    pub expires_in: String,
-}
+// [SERVICE] responses types.
+mod models;
+use models::response::{AuthResponse, AuthResponseError};
 
 #[tokio::main]
 async fn main() {
@@ -32,17 +25,17 @@ async fn main() {
 
     print!("{:?}", urls.Authorization);
 
-    let response = client
+    let result = client
         .get(urls.Authorization.url)
         .header(
             AUTHORIZATION,
-            "Bearer cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==",
+            "Basic cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==",
         )
         .send()
         .await
         .unwrap()
-        .json::<Vec<AuthResponse>>()
+        .json::<AuthResponseError>()
         .await;
 
-    print!("{:#?}", response);
+    print!("{:#?}", result);
 }
