@@ -16,6 +16,7 @@ use service_requests::{authentication::AuthenticationService, lipa_na_mpesa::Lip
 mod models;
 mod service_endpoints;
 mod service_requests;
+mod utils;
 
 #[main]
 async fn main() {
