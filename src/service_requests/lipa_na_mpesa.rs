@@ -52,17 +52,23 @@ impl LipaNaMpesaService {
         ///////////// [CONFIG] /////////////
         let urls = endpoints::ServiceEndpoints::new();
         let auth_token = AuthenticationService::init().await.unwrap();
+        let business_short_code = std::env::var("BUSINESS_SHORT_CODE")
+            .expect("[SHORT_CODE] NOT found!")
+            .trim()
+            .parse::<u64>()
+            .unwrap();
         let callback_url = std::env::var("CALLBACK_URL").expect("[CALLBACK_URL] NOT found!");
+        /////////////////////////////////////
 
         ///////////// Define [PAYLOD] ///////////
         let payload = serde_json::to_string(&LipaNaMpesaServiceRequest {
-            BusinessShortCode: std::env::var("BUSINESS_SHORT_CODE").expect("[SHORT_CODE] NOT found!").trim().parse::<u64>().unwrap(),
+            BusinessShortCode: business_short_code,
             Password: "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwNTE3MTgyNTA2".to_string(),
             Timestamp: "20240517182506".to_string(),
             TransactionType: TransactionTypes::CustomerPayBillOnline.as_str().to_string(),
             Amount: amount,
             PartyA: phonenumber,
-            PartyB: std::env::var("BUSINESS_SHORT_CODE").expect("SHORT_CODE not found!").trim().parse::<u64>().unwrap(),
+            PartyB: business_short_code,
             PhoneNumber: phonenumber,
             CallBackURL: callback_url,
             AccountReference: account_reference,
