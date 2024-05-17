@@ -6,14 +6,14 @@ const AUTHORIZATION_URL: &str =
 const CUSTOMER_TO_BUSINESS_URL: &str = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
 const MPESA_EXPRESS_URL: &str = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum RequestTypes {
     GET,
     POST,
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct EndpointMetadata {
     pub url: String,
     pub requestType: RequestTypes,
