@@ -3,10 +3,10 @@ use reqwest;
 use reqwest::header::AUTHORIZATION;
 
 // [SERVICE] endpoints.
-use crate::models::response::AuthResponse;
 use crate::service_endpoints::endpoints;
 
 // [SERVICE] responses types.
+use crate::models::response::AuthResponse;
 
 pub struct AuthenticationService;
 
