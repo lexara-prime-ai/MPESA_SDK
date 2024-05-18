@@ -1,35 +1,41 @@
-// let headers = new Headers();
-// headers.append("Authorization", "Bearer cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==");
-// fetch("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", { headers })
-//   .then(response => response.text())
-//   .then(result => console.log(result))
-//   .catch(error => console.log(error));
+/*
+    This crate provides a streamlined interface for
+    integrating M-Pesa, a widely used mobile money
+    service, into your applications.
 
-use reqwest;
-use reqwest::header;
-use serde::Deserialize;
+    Author: Irfan Ghat
+    License: MIT
+*/
+#![allow(unused)]
 
-#[allow(non_snake_case)]
-#[derive(Debug, Deserialize)]
-pub struct Todo {
-    pub userId: i32,
-    pub id: u32,
-    pub title: String,
-    pub completed: bool,
-}
+use tokio::main;
 
-#[tokio::main]
+use service_requests::{authentication::AuthenticationService, lipa_na_mpesa::LipaNaMpesaService};
+
+// Register all modules
+mod models;
+mod service_endpoints;
+mod service_requests;
+mod utils;
+
+#[main]
 async fn main() {
-    let client = reqwest::Client::new();
-    let endpoint = "https://jsonplaceholder.typicode.com/todos";
+    //////////////// Examples //////////////////
 
-    let response = client
-        .get(endpoint)
-        .send()
-        .await
-        .unwrap()
-        .json::<Vec<Todo>>()
-        .await;
+    ////////////////////////////////////////////
+    //// Initiate [Authentication] service ////
+    //////////////////////////////////////////
+    // let auth_result = AuthenticationService::init();
+    // println!("{:?}", auth_result.await.unwrap());
 
-    print!("{:#?}", response);
+    /////////////////////////////////////////
+    //// Initiate [LipaNaMpesa] service ////
+    ////////////////////////////////////////
+    let lipa_na_mpesa_result = LipaNaMpesaService::init(
+        1,
+        254741542352,
+        "CompanyNameLTD".to_string(),
+        "The payment has been processed successfully".to_string(),
+    );
+    println!("{:?}", lipa_na_mpesa_result.await);
 }
