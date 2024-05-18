@@ -10,6 +10,7 @@ description = "This crate provides a streamlined interface for integrating M-Pes
 
 [dependencies]
 anyhow = "1.0.83"
+base64 = "0.22.1"
 chrono = "0.4.38"
 dotenv = "0.15.0"
 futures = "0.3.30"

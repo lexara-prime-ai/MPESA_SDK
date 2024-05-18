@@ -1,6 +1,7 @@
 use anyhow::Error;
 use chrono::{Datelike, Local, Timelike};
 
+#[derive(Debug, Clone)]
 pub struct TimestampGenerator;
 
 impl TimestampGenerator {
@@ -14,12 +15,12 @@ impl TimestampGenerator {
         let minute = current_date.minute();
         let second = current_date.second();
 
-        let formatted_date_time = format!(
+        let timestamp = format!(
             "{:04}{:02}{:02}{:02}{:02}{:02}",
             year, month, day, hour, minute, second
         );
 
-        println!("[CURRENT TIMESTAMP] -> {}", formatted_date_time);
-        Ok(formatted_date_time)
+        println!("[CURRENT TIMESTAMP] -> {}", timestamp);
+        Ok(timestamp)
     }
 }

@@ -13,6 +13,7 @@ use crate::models::response::AuthResponse;
 
 // [SERVICES] i.e AuthenticationService, LipaNaMpesaService etc.
 use crate::service_requests::authentication::AuthenticationService;
+use crate::utils::encoder::Encoder;
 use crate::utils::timestamp::TimestampGenerator;
 
 ///////////////////////////////////
@@ -58,7 +59,9 @@ impl LipaNaMpesaService {
             .trim()
             .parse::<u64>()
             .unwrap();
-        let PASSKEY = "";
+        let passkey = std::env::var("PASSKEY").expect("[PASSKEY] NOT found!");
+        let timestamp = TimestampGenerator::init().unwrap();
+        let password = Encoder::init(business_short_code, passkey, &timestamp).unwrap();
         let callback_url = std::env::var("CALLBACK_URL").expect("[CALLBACK_URL] NOT found!");
 
         //////////////////////////////////////////
@@ -67,8 +70,8 @@ impl LipaNaMpesaService {
         let payload = serde_json::to_string(&LipaNaMpesaServiceRequest {
             BusinessShortCode: business_short_code,
             // Password -> Base64 Encode (Business Short Code + PassKey + Timestamp).
-            Password: "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwNTE3MTgyNTA2".to_string(),
-            Timestamp: "20240517182506".to_string(),
+            Password: password,
+            Timestamp: timestamp,
             TransactionType: TransactionTypes::CustomerPayBillOnline.as_str().to_string(),
             Amount: amount,
             PartyA: phonenumber,
@@ -89,9 +92,6 @@ impl LipaNaMpesaService {
         // dbg!(payload.clone());
         println!("{:#?}", payload.clone());
         ////////////////////////////////////
-
-        let timestamp = TimestampGenerator::init();
-        println!("{:?}", timestamp);
 
         // match client
         //     .post(urls.MpesaExpress.url)
