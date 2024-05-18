@@ -1,3 +1,4 @@
+use anyhow::{Context, Ok, Result};
 use dotenv::dotenv;
 use reqwest;
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE};
@@ -45,7 +46,7 @@ impl LipaNaMpesaService {
         phonenumber: u64,
         account_reference: String,
         transaction_description: String,
-    ) {
+    ) -> Result<String> {
         dotenv().ok();
         let client = reqwest::Client::new();
 
@@ -93,26 +94,24 @@ impl LipaNaMpesaService {
         println!("{:#?}", payload.clone());
         ////////////////////////////////////
 
-        // match client
-        //     .post(urls.MpesaExpress.url)
-        //     .header(CONTENT_TYPE, "application/json")
-        //     .header(AUTHORIZATION, "Bearer 4hRDuEVYneeLSZZkiq7qDgUFjq3R")
-        //     .body(payload)
-        //     .send()
-        //     .await
-        // {
-        //     Ok(results) => match results.json::<AuthResponse>().await {
-        //         Ok(auth_response) => {
-        //             println!("\nAUTH_RESPONSE: {:#?}", auth_response);
-        //         }
-        //         Err(e) => {
-        //             println!("\nError parsing [AuthResponse]: {:#?}", e);
-        //         }
-        //     },
-        //     Err(e) => {
-        //         println!("\nError sending request: {:#?}", e);
-        //     }
-        // }
+        let response = client
+            .post(urls.MpesaExpress.url)
+            .header(CONTENT_TYPE, "application/json")
+            .header(AUTHORIZATION, "Bearer 4hRDuEVYneeLSZZkiq7qDgUFjq3R")
+            .body(payload)
+            .send()
+            .await
+            .context("Error sending request")?;
+
+        if response.status().is_success() {
+            let lipa_na_mpesa_response = response.text().await.context("Error parsing response")?;
+            Ok(lipa_na_mpesa_response)
+        } else {
+            Err(anyhow::anyhow!(
+                "Request failed with status: {}",
+                response.status()
+            ))
+        }
     }
 }
 
