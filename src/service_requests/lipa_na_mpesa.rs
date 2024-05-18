@@ -54,7 +54,10 @@ impl LipaNaMpesaService {
         ///////////// [CONFIG] /////////////
         ////////////////////////////////////
         let urls = endpoints::ServiceEndpoints::new();
-        let auth_token = AuthenticationService::init().await.unwrap();
+        let auth_response = AuthenticationService::init().await.unwrap();
+        let auth_token = format!("Bearer {}", auth_response.access_token);
+
+        println!("{}", auth_token);
         let business_short_code = std::env::var("BUSINESS_SHORT_CODE")
             .expect("[SHORT_CODE] NOT found!")
             .trim()
@@ -65,7 +68,7 @@ impl LipaNaMpesaService {
         let password = Encoder::init(business_short_code, passkey, &timestamp).unwrap();
         let callback_url = std::env::var("CALLBACK_URL").expect("[CALLBACK_URL] NOT found!");
 
-        //////////////////////////////////////////
+        //////////////////////////////////////////c
         ///////////// Define [PAYLOD] ///////////
         ////////////////////////////////////////
         let payload = serde_json::to_string(&LipaNaMpesaServiceRequest {
@@ -91,13 +94,13 @@ impl LipaNaMpesaService {
         // dbg!(format!("Basic {:?}", auth_token));
         // dbg!(urls.Authorization.clone());
         // dbg!(payload.clone());
-        println!("{:#?}", payload.clone());
+        // dbg!("{:#?}", payload.clone());
         ////////////////////////////////////
 
         let response = client
             .post(urls.MpesaExpress.url)
             .header(CONTENT_TYPE, "application/json")
-            .header(AUTHORIZATION, "Bearer 4hRDuEVYneeLSZZkiq7qDgUFjq3R")
+            .header(AUTHORIZATION, auth_token)
             .body(payload)
             .send()
             .await

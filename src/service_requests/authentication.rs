@@ -9,6 +9,7 @@ use crate::service_endpoints::endpoints;
 // [SERVICE] responses types.
 use crate::models::response::AuthResponse;
 
+#[derive(Debug)]
 pub struct AuthenticationService;
 
 impl AuthenticationService {
