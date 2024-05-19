@@ -123,6 +123,10 @@ Currently, the SDK exposes functions for **Consumer-to-Business** (*C2B*) intera
 
 In the near *future*, **Business-to-Business** (*B2B*) transactions will also be implemented. This will enable transactions between businesses, expanding the capabilities of the SDK to cover more use cases.
 
+### Secure Callback Endpoint
+
+Additionally, users who opt in will have a secure endpoint for the callback URL generated and configured on **Render Cloud** (*@render-inc*). This endpoint will handle the ***JSON dumps*** after all transactions, reducing the effort required to set up a secure endpoint/domain.
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request on GitHub if you have any suggestions or improvements.
