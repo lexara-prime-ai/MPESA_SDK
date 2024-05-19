@@ -13,7 +13,7 @@ To use the **MPESA SDK** in your Rust project, add the following to your `Cargo.
 ```toml
 [dependencies]
 tokio = { version = "1", features = ["full"] }
-mpesa_sdk = "0.1.0"  # Replace with the actual version` 
+mpesa_sdk = "0.1.0"  # Current version [BETA] 
 ```
 ## Modules
 
