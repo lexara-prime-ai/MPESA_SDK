@@ -3,8 +3,13 @@ name = "mpesa-sdk"
 version = "0.1.0"
 edition = "2021"
 authors = ["Irfan Ghat"]
-categories = ["payment", "sdk"]
 description = "This crate provides a streamlined interface for integrating M-Pesa, a widely used mobile money service, into your applications."
+homepage = "https://github.com/lexara-prime-ai/MPESA_SDK"
+repository = "https://github.com/lexara-prime-ai/MPESA_SDK"
+readme = "README.md"
+keywords = ["payment", "web", "http", "api"]
+categories = ["payment", "sdk"]
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
