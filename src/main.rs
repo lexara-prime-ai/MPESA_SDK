@@ -8,9 +8,9 @@
 */
 #![allow(unused)]
 
-use tokio::main;
-
+use crate::utils::prelude::display_version;
 use service_requests::{authentication::AuthenticationService, lipa_na_mpesa::LipaNaMpesaService};
+use tokio::main;
 
 // Register all modules
 mod models;
@@ -20,9 +20,7 @@ mod utils;
 
 #[main]
 async fn main() {
-    println!(r#"
-        [MPESA SDK version 0.1.1] 
-    "#);
+    display_version();
 
     //////////////// Examples //////////////////
 
