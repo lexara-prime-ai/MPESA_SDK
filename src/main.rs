@@ -20,6 +20,10 @@ mod utils;
 
 #[main]
 async fn main() {
+    println!(r#"
+        [MPESA SDK version 0.1.1] 
+    "#);
+
     //////////////// Examples //////////////////
 
     ////////////////////////////////////////////
@@ -38,6 +42,4 @@ async fn main() {
     //     "The payment has been processed successfully".to_string(),
     // );
     // println!("{:?}", lipa_na_mpesa_result.await);
-
-    println!("It works!");
 }
