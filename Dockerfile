@@ -1,4 +1,4 @@
-FROM rust:latest as chef
+FROM rust:latest AS chef
 
 WORKDIR /mpesa_sdk
 
