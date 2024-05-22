@@ -137,7 +137,7 @@ async fn initiate_payment() {
 
 ## Configuration Example
 
-Below is an example of how to configure the Lipa na MPESA service with the provided environment variables:
+Below is an example of how the Lipa na MPESA service has been configured to read from the environment variables:
 
 ```rust
 use service_requests::authentication::AuthenticationService;
