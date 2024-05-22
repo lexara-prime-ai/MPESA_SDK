@@ -8,7 +8,7 @@ homepage = "https://github.com/lexara-prime-ai/MPESA_SDK"
 repository = "https://github.com/lexara-prime-ai/MPESA_SDK"
 readme = "README.md"
 keywords = ["payment", "web", "http", "api"]
-categories = ["payment", "sdk"]
+categories = ["sdk"]
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
