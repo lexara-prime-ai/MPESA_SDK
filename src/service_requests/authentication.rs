@@ -3,6 +3,9 @@ use dotenv::dotenv;
 use reqwest::header::AUTHORIZATION;
 use reqwest::{self};
 
+// [ENVIRONMENT] Management.
+use crate::environment_manager::environment::{self, Config, Environment};
+
 // [SERVICE] endpoints.
 use crate::service_endpoints::prelude::endpoints;
 
@@ -17,12 +20,18 @@ impl AuthenticationService {
         dotenv().ok();
         ////////////////////////////////////////////
         let client = reqwest::Client::new();
+        let config = Config::set_environment();
         let urls = endpoints::ServiceEndpoints::new();
+        #[allow(non_snake_case)]
+        let AUTH_URL = format!("{}{}", Config::set_environment(), &urls.Authorization.url);
         let auth_token = std::env::var("AUTH_TOKEN").context("[AUTH_TOKEN] NOT found.")?;
+
+        println!("{:?}", config);
+        println!("{:?}", AUTH_URL);
 
         ///////////////////////////////////////////////
         let response = client
-            .get(&urls.Authorization.url)
+            .get(AUTH_URL)
             .header(AUTHORIZATION, format!("Basic {}", auth_token.trim()))
             .send()
             .await

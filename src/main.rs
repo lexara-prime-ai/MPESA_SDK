@@ -31,8 +31,8 @@ async fn main() {
     ////////////////////////////////////////////
     //// Initiate [Authentication] service ////
     //////////////////////////////////////////
-    // let auth_result = AuthenticationService::init();
-    // println!("{:?}", auth_result.await.unwrap());
+    let auth_result = AuthenticationService::init();
+    println!("{:?}", auth_result.await.unwrap());
 
     /////////////////////////////////////////
     //// Initiate [LipaNaMpesa] service ////
