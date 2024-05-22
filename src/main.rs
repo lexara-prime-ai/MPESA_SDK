@@ -39,7 +39,7 @@ async fn main() {
     ////////////////////////////////////////
     let lipa_na_mpesa_result = LipaNaMpesaService::init(
         1,
-        254123456789,
+        254712345678,
         "CompanyNameLTD".to_string(),
         "The payment has been processed successfully".to_string(),
     );
