@@ -1,10 +1,9 @@
 #![allow(unused)]
 
 /// The following list contains the required URLs.
-const AUTHORIZATION_URL: &str =
-    "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
-const CUSTOMER_TO_BUSINESS_URL: &str = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
-const MPESA_EXPRESS_URL: &str = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+const AUTHORIZATION_URL: &str = "oauth/v1/generate?grant_type=client_credentials";
+const CUSTOMER_TO_BUSINESS_URL: &str = "mpesa/c2b/v1/registerurl";
+const MPESA_EXPRESS_URL: &str = "mpesa/stkpush/v1/processrequest";
 
 #[derive(Debug, Clone)]
 pub enum RequestTypes {

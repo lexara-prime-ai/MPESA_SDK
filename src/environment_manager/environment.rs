@@ -16,11 +16,11 @@ impl<'c> Config<'c> {
         match environment {
             Environment::Live => Self {
                 // To do -> Update existing URL with [LIVE] url.
-                BASE_URL: "https://sandbox.safaricom.co.ke/mpesa/".to_string(),
+                BASE_URL: "https://sandbox.safaricom.co.ke/".to_string(),
                 TOKEN: token,
             },
             Environment::Sandbox => Self {
-                BASE_URL: "https://sandbox.safaricom.co.ke/mpesa/".to_string(),
+                BASE_URL: "https://sandbox.safaricom.co.ke/".to_string(),
                 TOKEN: token,
             },
         }
