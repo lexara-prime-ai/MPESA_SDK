@@ -4,7 +4,7 @@ use reqwest::header::AUTHORIZATION;
 use reqwest::{self};
 
 // [ENVIRONMENT] Management.
-use crate::environment_manager::environment::{self, Config, Environment};
+use crate::environment_manager::prelude::*;
 
 // [SERVICE] endpoints.
 use crate::service_endpoints::prelude::endpoints;
@@ -25,9 +25,6 @@ impl AuthenticationService {
         #[allow(non_snake_case)]
         let AUTH_URL = format!("{}{}", Config::set_environment(), &urls.Authorization.url);
         let auth_token = std::env::var("AUTH_TOKEN").context("[AUTH_TOKEN] NOT found.")?;
-
-        println!("{:?}", config);
-        println!("{:?}", AUTH_URL);
 
         ///////////////////////////////////////////////
         let response = client

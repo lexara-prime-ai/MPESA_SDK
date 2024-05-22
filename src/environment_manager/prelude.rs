@@ -1,1 +1,1 @@
-pub use crate::environment_manager::environment;
+pub use crate::environment_manager::environment::{Config, Environment};

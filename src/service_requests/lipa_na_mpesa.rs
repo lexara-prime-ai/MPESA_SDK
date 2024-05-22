@@ -3,6 +3,9 @@ use dotenv::dotenv;
 use reqwest;
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE};
 
+// [ENVIRONMENT] Management.
+use crate::environment_manager::prelude::*;
+
 // [SERVICE] endpoints.
 use crate::service_endpoints::endpoints;
 
@@ -54,6 +57,8 @@ impl LipaNaMpesaService {
         ///////////// [CONFIG] /////////////
         ////////////////////////////////////
         let urls = endpoints::ServiceEndpoints::new();
+        #[allow(non_snake_case)]
+        let MPESA_EXPRESS_URL = format!("{}{}", Config::set_environment(), &urls.MpesaExpress.url);
         let auth_response = AuthenticationService::init().await.unwrap();
         let auth_token = format!("Bearer {}", auth_response.access_token);
 
@@ -98,7 +103,7 @@ impl LipaNaMpesaService {
         ////////////////////////////////////
 
         let response = client
-            .post(urls.MpesaExpress.url)
+            .post(MPESA_EXPRESS_URL)
             .header(CONTENT_TYPE, "application/json")
             .header(AUTHORIZATION, auth_token)
             .body(payload)
