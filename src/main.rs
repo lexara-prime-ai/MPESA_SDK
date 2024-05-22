@@ -8,15 +8,19 @@
 */
 #![allow(unused)]
 
-use crate::utils::prelude::display_version;
-use service_requests::{authentication::AuthenticationService, lipa_na_mpesa::LipaNaMpesaService};
 use tokio::main;
 
 // Register all modules
+mod environment_manager;
+
 mod models;
 mod service_endpoints;
+
 mod service_requests;
+use service_requests::{prelude::*, *};
+
 mod utils;
+use utils::{prelude::*, *};
 
 #[main]
 async fn main() {

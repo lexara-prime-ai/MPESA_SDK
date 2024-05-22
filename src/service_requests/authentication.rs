@@ -4,7 +4,7 @@ use reqwest::header::AUTHORIZATION;
 use reqwest::{self};
 
 // [SERVICE] endpoints.
-use crate::service_endpoints::endpoints;
+use crate::service_endpoints::prelude::endpoints;
 
 // [SERVICE] responses types.
 use crate::models::response::AuthResponse;
